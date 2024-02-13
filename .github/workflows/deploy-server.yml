@@ -1,0 +1,27 @@
+# This is a action to deploy
+# COPYRIGHT 2021 Api Prices Project
+
+name: Api Prices Project Deploy Server
+
+on:
+  workflow_dispatch:
+
+jobs:
+    deploy:
+      runs-on: [ubuntu, golang, self-hosted]
+      steps:
+        - name: Clean Workspace
+          uses: AutoModality/action-clean@v1
+
+        - name: Checkout repo code
+          uses: actions/checkout@v3
+
+        - name: Deploy docker-compose to server
+          uses: matiasnu/github-action-ssh-docker-compose@v2.0.3
+          with:
+            ssh_host: ${{ secrets.SERVER_SSH_HOST }}
+            ssh_user: ${{ secrets.SERVER_SSH_USERNAME }}
+            ssh_private_key: ${{ secrets.SERVER_SSH_PRIVATE_KEY}}
+            ssh_port: ${{ secrets.SERVER_SSH_PORT}}
+            docker_compose_prefix: api_prices_project
+            docker_compose_filename: environment/docker-compose.yml

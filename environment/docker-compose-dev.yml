@@ -1,0 +1,23 @@
+version: '2.3'
+
+services:
+  api-prices-project:
+    container_name: api-prices-project
+    build:
+      context: ./..
+      dockerfile: environment/api-prices-project.dockerfile
+    restart: always
+    volumes:
+      - /log/api_prices_project:/log
+    env_file:
+      - /home/titan/Desktop/jopit/api-prices-project/.env      
+    environment:
+      GO_ENVIRONMENT: 'production'
+    ports:
+      - "8003:8080"
+    networks:
+      - "jopitnet"
+
+networks:
+  jopitnet:
+    external: true

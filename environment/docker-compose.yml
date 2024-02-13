@@ -1,0 +1,21 @@
+version: '2.3'
+
+services:
+  api-prices-project:
+    container_name: api-prices-project
+    image: agustinrabini/api-prices-project
+    restart: always
+    volumes:
+      - /log/api_prices_project:/log
+    env_file:
+        - /home/maestrojopit/.jopit-secrets-envs/apis-prices-secrets.env
+    environment:
+      GO_ENVIRONMENT: 'production'
+    ports:
+      - "8003:8000"
+    networks:
+      - "jopitnet"
+
+networks:
+  jopitnet:
+    external: true

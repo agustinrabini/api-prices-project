@@ -1,0 +1,126 @@
+definitions:
+  domain.Price:
+    properties:
+      amount:
+        minimum: 0
+        type: number
+      currency:
+        type: string
+      id:
+        type: string
+      item_id:
+        type: string
+    required:
+    - amount
+    - currency
+    - item_id
+    type: object
+info:
+  contact:
+    email: matiasne45@gmail.com
+    name: Matias Nuñez
+    url: http://www.swagger.io/support
+  description: This is a Api Prices Project.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Api Prices Project
+  version: "1.0"
+paths:
+  /ping:
+    get:
+      description: test if the router works correctly
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Ping
+      tags:
+      - ping
+  /prices:
+    post:
+      consumes:
+      - application/json
+      description: Create price in db
+      parameters:
+      - description: Add price
+        in: body
+        name: price
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Price'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Create Price
+      tags:
+      - Prices
+  /prices/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete price in db
+      parameters:
+      - description: Price ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Delete Price
+      tags:
+      - Prices
+    put:
+      consumes:
+      - application/json
+      description: Update price in db
+      parameters:
+      - description: Price ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Add price
+        in: body
+        name: price
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Price'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Update Price
+      tags:
+      - Prices
+  /prices/item/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of price by item ID
+      parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Price'
+      summary: Get price detail
+      tags:
+      - Prices
+swagger: "2.0"
